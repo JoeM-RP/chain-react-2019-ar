@@ -4,17 +4,22 @@ import{
   ViroARPlaneSelector,
   ViroDirectionalLight,
   ViroSpotLight,
-  Viro3DObject
+  Viro3DObject,
+  ViroMaterials,
+  ViroQuad,
+  ViroButton
 } from 'react-viro'
 
 
 export const ARScene = ({ arSceneNavigator: { viroAppProps } }) => 
 {
+  let productResources;
   const isProductExist = viroAppProps.product && viroAppProps.product.length > 0;
-  const arModelRef = useRef(null);
+  const ar3dModelRef = useRef(null);
 
   // Set initial rotation
   const [rotation, setRotation] = useState([0,0,0]);
+
   // Set initial scale
   const [scale, setScale] = useState([0.0001, 0.0001, 0.0001]);
 
@@ -91,23 +96,40 @@ return(
           shadowFarZ={5}
           shadowOpacity={0.7}
         />
-        { isProductExists && 
+        { isProductExist && 
           <ViroARPlaneSelector ref={viroAppProps.arSelectorRef}>
+            <ViroButton 
+              position={[1, 3, -5]}
+              height={2}
+              width={3}
+            />
             <Viro3DObject ref={ar3dModelRef}
-            source={{ uri: viroAppProps.product[0].model }}
-            resources={productResources}
-            onLoadEnd={data => { alert("Model Loaded"); }}
-            materials={["modelMaterial"]}
-            onError={event => { alert("Some error"); }}
-            onDrag={() => {}}
-            onPinch={onPinch}
-            onRotate={onRotate}
-            scale={scale}
-            position={[0, 0, 0]}
-            rotation={rotation}
-            dragType="FixedToWorld"
-            type="OBJ"
-            castsShadow={true}/>
+              source={{ uri: viroAppProps.product[0].model }}
+              resources={productResources}
+              onLoadEnd={data => { alert("Model Loaded"); }}
+              materials={["modelMaterial"]}
+              onError={event => { alert("Some error"); }}
+              onDrag={() => {}}
+              onPinch={onPinch}
+              onRotate={onRotate}
+              scale={scale}
+              position={[0, 0, 0]}
+              rotation={rotation}
+              dragType="FixedToWorld"
+              type="OBJ"
+              castsShadow={true}
+              // physicsBody={{
+              //   type: "Dynamic",
+              //   mass: 1
+              // }}
+              />
+            <ViroQuad
+              arShadowReceiver={true}
+              rotation={[-90, 0, 0]}
+              position={[0, -0.01, 0]}
+              width={10}
+              height={10}
+            />
           </ViroARPlaneSelector>
         }
   </ViroARScene>

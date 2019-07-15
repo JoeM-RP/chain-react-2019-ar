@@ -16,7 +16,7 @@ import {
   TouchableOpacity
 } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-navigation";
-import { ARScene } from "../ARScene.finished";
+import { ARScene } from "../ARScene";
 import { Product } from "./Product";
 
 

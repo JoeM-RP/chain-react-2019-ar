@@ -23,14 +23,14 @@ export const Product = ({ title, description, price, photo, showModel }) => (
           source={photo}
         />
       </TouchableOpacity>
-      <TouchableOpacity
+      {/* <TouchableOpacity
         onPress={() => alert("Buy")}
         style={styles.panelButton}
       >
         <Text style={styles.panelButtonTitle}>
           Buy
         </Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
     </View>
   </SafeAreaView>
 );
